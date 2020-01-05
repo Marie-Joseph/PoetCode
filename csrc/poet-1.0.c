@@ -9,7 +9,10 @@
  *
  * TODO:
  * I. Implement user control of poem shape and source
- * II. GUI?
+ * II. Set-up Windows/Unix differences
+ *  A. Change paths (and drop sysexits.h?) for Windows
+ *  B. Use /usr/share/dict/words for harcoded Unix dictionary
+ * III. GUI?
  */
 
 

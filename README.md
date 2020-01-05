@@ -7,4 +7,4 @@ As this is a personal experiment, at the moment I won't be accepting any code co
 
 As far as I can tell, neither version will write properly on Windows as-is, but simply changing file path formatting should fix.
 
-For when the project is finished, it is licensed. Everything applicable in this repository is covered by the Cooperative Non-Violent Public License. The full text is available in the LICENSE file, and more general information is available at https://thufie.lain.haus/NPL.html. This does not include the dictionary files; these were borrowed from a class I took, but I've found them elsewhere as well. By this I assume they are free to use.
+The license of this project does not apply to the dictionary files used in the hard-coded implementations. These were found floating around the internet without any particular license attached. If someone recognizes them and can point me to a proper citation, please do.
