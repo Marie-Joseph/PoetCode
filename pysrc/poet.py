@@ -2,10 +2,10 @@ import random
 from datetime import datetime
 
 
-with open("../dicts/large") as fp:
+with open("dicts/large") as fp:
     words = list(fp)
 
-with open("../poems/Py-" + datetime.now().isoformat(), "w") as op:
+with open("poems/Py-" + datetime.now().isoformat(), "w") as op:
     for stanza in range(3):
         for line in range(12):
             for word in range(random.randrange(13)):

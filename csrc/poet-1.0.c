@@ -1,4 +1,16 @@
-/* poet.c - put header here */
+/* poet.c - program to write poems
+ *
+ * poet.c is a simple program which takes a plaintext source file and returns a
+ * randomly/programmatically generated poem.
+ *
+ * The artistic methodology of this program is inspired by John Cage's endeavors
+ * to "imitate Nature in her modes of operation," as well as contemporary
+ * radical poets.
+ *
+ * TODO:
+ * I. Implement user control of poem shape and source
+ * II. GUI?
+ */
 
 
 #include <stdio.h>
@@ -10,7 +22,10 @@
 
 #define MAX_WORDS 150000
 #define MAX_CHARS 47
+#define MAX_NAME 30
 
+
+char *genfilen();
 
 int main (int argc, char **argv) {
 
@@ -43,7 +58,7 @@ int main (int argc, char **argv) {
     int rand_words;
 
     /* Open and read-in input file */
-    FILE *fp = fopen("../dicts/large", "r");
+    FILE *fp = fopen("dicts/large", "r");
     if (fp == NULL) {
         fprintf(stderr, "Unable to open dictionary\n");
         exit(EX_NOINPUT);
@@ -58,12 +73,14 @@ int main (int argc, char **argv) {
     fclose(fp);
 
     /* Open and write to output file */
-    FILE *pp = fopen("new_poem.txt", "w");
+    char *filename = genfilen();
+    FILE *pp = fopen(filename, "w");
     if (pp == NULL) {
         fprintf(stderr, "Unable to create poem file\n");
         exit(EX_CANTCREAT);
     }
 
+    /* Iterate over: stanzas, lines, words; write words and whitespaces */
     for (i = 0; i < stanzas; i++) {
         for (j = 0; j < lines; j++) {
             rand_words = (rand() % words) + 1;
@@ -77,9 +94,26 @@ int main (int argc, char **argv) {
     }
     fclose(pp);
 
+    /* Clean up and go home */
     for (i = 0; i < counter; i++) {
         free(word_list[i]);
     }
+    free(filename);
 
     exit(EX_OK);
+}
+
+/* Generate a filename -
+* this would be much easier with C99; check Windows compliance */
+char *genfilen() {
+    struct tm *local;
+    const time_t t = time(NULL);
+
+    char *filen = calloc(MAX_NAME, sizeof(char));
+    
+    local = localtime(&t);
+    
+    strftime(filen, MAX_NAME, "poems/C-%Y-%m-%dT%H:%M:%S", local);
+
+    return filen;
 }
