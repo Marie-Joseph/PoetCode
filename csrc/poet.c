@@ -16,7 +16,18 @@
  *
  */
 
-/* TODO: it do not work */
+/* Dev notes:
+* The state of development is unclear. Apparent poems are produced,
+* apparently even using real words found in the dictionary as they appear.
+* Yet... The Python version tends to make much more sense. The reason the state
+* is unclear is that I do not know whether this is a feature or a bug.
+* Furthermore, I cannot determine the cause of this behavior. The reads
+* seem correct during debugging, the writes as well. This may be a side-effect
+* of how fast C is, cramming dozens of rand() calls into a second or less.
+* One option is to switch from a quick, light trie of characters to an array of
+* words. However, this will make the program significantly heavier.
+* On verra.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
