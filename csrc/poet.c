@@ -73,7 +73,7 @@ int main (int argc, char **argv) {
 
     counter = 0;
     while (fscanf(fp, "%s", buf) != EOF) {
-        word_list[counter] = calloc(MAX_CHARS, sizeof(char));
+        word_list[counter] = calloc(strlen(buf) + 1, sizeof(char));
         strcpy(word_list[counter], buf);
         counter++;
     }
