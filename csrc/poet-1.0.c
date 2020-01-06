@@ -13,19 +13,24 @@
  *  A. Change paths (and drop sysexits.h?) for Windows
  *  B. Use /usr/share/dict/words for harcoded Unix dictionary
  * III. GUI?
- */
+*/
 
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <sysexits.h>
 
 
+/* Exit codes based on widespread sysexits.h*/
+#define EX_OK 0
+#define EX_USAGE 64
+#define EX_NOINPUT 66
+#define EX_CANTCREAT 73
+
+/* Global constants */
 #define MAX_WORDS 150000
 #define MAX_CHARS 47
-#define MAX_NAME 30
 
 
 char *genfilen();
@@ -69,7 +74,7 @@ int main (int argc, char **argv) {
 
     counter = 0;
     while ((read = fscanf(fp, "%s", buf)) != EOF) {
-        word_list[counter] = calloc(MAX_CHARS, sizeof(char));
+        word_list[counter] = calloc(read + 1, sizeof(char));
         strcpy(word_list[counter], buf);
         counter++;
     }
@@ -112,11 +117,11 @@ char *genfilen() {
     struct tm *local;
     const time_t t = time(NULL);
 
-    char *filen = calloc(MAX_NAME, sizeof(char));
+    char *filen = calloc(MAX_CHARS, sizeof(char));
     
     local = localtime(&t);
     
-    strftime(filen, MAX_NAME, "poems/C-%Y-%m-%dT%H:%M:%S", local);
+    strftime(filen, MAX_CHARS, "poems/C-%Y-%m-%dT%H:%M:%S", local);
 
     return filen;
 }
