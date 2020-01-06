@@ -52,7 +52,6 @@ int main (int argc, char **argv) {
     int j;
     int k;
     int counter;
-    size_t read;
 
     /* Storage */
     char *word_list[MAX_WORDS];
@@ -73,8 +72,8 @@ int main (int argc, char **argv) {
     }
 
     counter = 0;
-    while ((read = fscanf(fp, "%s", buf)) != EOF) {
-        word_list[counter] = calloc(read + 1, sizeof(char));
+    while (fscanf(fp, "%s", buf) != EOF) {
+        word_list[counter] = calloc(MAX_CHARS, sizeof(char));
         strcpy(word_list[counter], buf);
         counter++;
     }
@@ -111,15 +110,14 @@ int main (int argc, char **argv) {
     exit(EX_OK);
 }
 
-/* Generate a filename -
+/* Generate a filename based on current time formatted to ISO standard -
 * this would be much easier with C99; check Windows compliance */
 char *genfilen() {
-    struct tm *local;
+    /* Prepare time values, name storage, and generate name */
     const time_t t = time(NULL);
+    struct tm *local = localtime(&t);
 
     char *filen = calloc(MAX_CHARS, sizeof(char));
-    
-    local = localtime(&t);
     
     strftime(filen, MAX_CHARS, "poems/C-%Y-%m-%dT%H:%M:%S", local);
 
